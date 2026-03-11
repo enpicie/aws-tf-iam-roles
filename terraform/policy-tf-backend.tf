@@ -11,7 +11,9 @@ resource "aws_iam_policy" "tf_backend" {
           "s3:GetObject",
           "s3:PutObject",
           "s3:DeleteObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:GetBucketLocation",
+          "s3:HeadObject"
         ],
         Resource = [
           "arn:aws:s3:::*-terraform-state",
@@ -19,14 +21,13 @@ resource "aws_iam_policy" "tf_backend" {
         ]
       },
       {
-        # DynamoDB is used by Terraform for state locking to prevent
-        # concurrent runs from corrupting the state file.
         Sid    = "DynamoDBStateLocking",
         Effect = "Allow",
         Action = [
           "dynamodb:GetItem",
           "dynamodb:PutItem",
-          "dynamodb:DeleteItem"
+          "dynamodb:DeleteItem",
+          "dynamodb:DescribeTable"
         ],
         Resource = "arn:aws:dynamodb:*:637423387388:table/terraform-state-locks"
       }
