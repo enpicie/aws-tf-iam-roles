@@ -14,6 +14,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_ecs_alb_alb" {
   policy_arn = aws_iam_policy.alb_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_ecs_alb_tf_backend" {
+  role       = aws_iam_role.github_actions_ecs_alb.name
+  policy_arn = aws_iam_policy.tf_backend.arn
+}
+
 resource "github_actions_organization_secret" "aws_role_arn_ecs_alb" {
   secret_name     = "AWS_ROLE_ARN_ECS_ALB"
   visibility      = var.github_secret_visibility

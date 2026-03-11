@@ -14,6 +14,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_lambda_apigw_apigw" {
   policy_arn = aws_iam_policy.apigw_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_lambda_apigw_tf_backend" {
+  role       = aws_iam_role.github_actions_lambda_apigw.name
+  policy_arn = aws_iam_policy.tf_backend.arn
+}
+
 resource "github_actions_organization_secret" "aws_role_arn_lambda_apigw" {
   secret_name     = "AWS_ROLE_ARN_LAMBDA_APIGW"
   visibility      = var.github_secret_visibility

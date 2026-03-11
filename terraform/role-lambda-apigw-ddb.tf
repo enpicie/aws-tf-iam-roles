@@ -19,6 +19,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_lambda_apigw_ddb_dynam
   policy_arn = aws_iam_policy.dynamodb_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_lambda_apigw_ddb_tf_backend" {
+  role       = aws_iam_role.github_actions_lambda_apigw_ddb.name
+  policy_arn = aws_iam_policy.tf_backend.arn
+}
+
 resource "github_actions_organization_secret" "aws_role_arn_lambda_apigw_ddb" {
   secret_name     = "AWS_ROLE_ARN_LAMBDA_APIGW_DDB"
   visibility      = var.github_secret_visibility
