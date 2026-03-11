@@ -13,9 +13,10 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: enpicie/gh-action-workflow-terraform-run@v0.1.0
+      - uses: enpicie/gh-action-workflow-terraform-run@v0.2.0
         with:
           aws_role_arn: ${{ secrets.AWS_ROLE_ARN_TF_IAM_DEPLOY }}
           state_key: aws-infra/tf-iam-roles.tfstate
           aws_region: us-east-2
           tf_directory: ./terraform
+          github_token: ${{ secrets.GH_ACTIONS_PAT }} # Used for github provider
