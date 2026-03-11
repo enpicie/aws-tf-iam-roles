@@ -18,6 +18,8 @@ resource "aws_iam_policy" "lambda_full_access" {
         Action = [
           "s3:PutObject",
           "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:GetObjectTagging",
           "s3:ListBucket"
         ],
         Resource = [
@@ -37,6 +39,9 @@ resource "aws_iam_policy" "lambda_full_access" {
           "iam:CreateRole",
           "iam:GetRole",
           "iam:DeleteRole",
+          "iam:GetRolePolicy",
+          "iam:PutRolePolicy",
+          "iam:DeleteRolePolicy",
           "iam:AttachRolePolicy",
           "iam:DetachRolePolicy",
           "iam:ListRolePolicies",
