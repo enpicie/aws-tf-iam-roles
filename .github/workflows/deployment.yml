@@ -13,7 +13,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: your-org/gh-action-workflow-terraform-run@v1.0.0
+      - uses: your-org/gh-action-workflow-terraform-run@v0.1.0
         with:
           aws_role_arn: ${{ secrets.AWS_ROLE_ARN_TF_IAM_DEPLOY }}
           state_key: aws-infra/tf-iam-roles.tfstate
