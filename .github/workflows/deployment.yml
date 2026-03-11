@@ -1,0 +1,21 @@
+name: Deploy Infrastructure
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: your-org/gh-action-workflow-terraform-run@v1.0.0
+        with:
+          aws_role_arn: ${{ secrets.AWS_ROLE_ARN_TF_IAM_DEPLOY }}
+          state_key: aws-infra/tf-iam-roles.tfstate
+          aws_region: us-east-2
+          tf_directory: ./terraform
