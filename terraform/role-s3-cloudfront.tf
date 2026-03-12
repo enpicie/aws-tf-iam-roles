@@ -14,6 +14,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_s3_cloudfront_cloudfro
   policy_arn = aws_iam_policy.cloudfront_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_s3_cloudfront_acm" {
+  role       = aws_iam_role.github_actions_s3_cloudfront.name
+  policy_arn = aws_iam_policy.acm_full_access.arn
+}
+
 resource "aws_iam_role_policy_attachment" "github_actions_s3_cloudfront_tf_backend" {
   role       = aws_iam_role.github_actions_s3_cloudfront.name
   policy_arn = aws_iam_policy.tf_backend.arn
