@@ -37,6 +37,7 @@ All roles include `TerraformBackendAccess` for S3 state and DynamoDB state locki
 | [role-s3-cloudfront.tf](terraform/role-s3-cloudfront.tf) | `tf-cloudfront-s3` | `AWS_ROLE_ARN_S3_CLOUDFRONT` | S3, CloudFront, ACM |
 | [role-ecs-alb.tf](terraform/role-ecs-alb.tf) | `tf-alb-ecs` | `AWS_ROLE_ARN_ECS_ALB` | ECS, ALB |
 | [role-route53.tf](terraform/role-route53.tf) | `tf-route53` | `AWS_ROLE_ARN_ROUTE53` | Route 53, ACM |
+| [role-ecr.tf](terraform/role-ecr.tf) | `tf-ecr` | `AWS_ROLE_ARN_ECR` | ECR |
 
 ## Adding a new role
 
@@ -75,5 +76,6 @@ terraform/
 ├── role-lambda-apigw-ddb-sqs.tf
 ├── role-s3-cloudfront.tf
 ├── role-ecs-alb.tf
-└── role-route53.tf
+├── role-route53.tf
+└── role-ecr.tf
 ```
