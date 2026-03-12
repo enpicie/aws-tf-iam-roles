@@ -36,7 +36,7 @@ All roles include `TerraformBackendAccess` for S3 state and DynamoDB state locki
 | [role-lambda-apigw-ddb-sqs.tf](terraform/role-lambda-apigw-ddb-sqs.tf) | `tf-apigw-ddb-lambda-sqs` | `AWS_ROLE_ARN_LAMBDA_APIGW_DDB_SQS` | Lambda, API Gateway, DynamoDB, SQS |
 | [role-s3-cloudfront.tf](terraform/role-s3-cloudfront.tf) | `tf-cloudfront-s3` | `AWS_ROLE_ARN_S3_CLOUDFRONT` | S3, CloudFront |
 | [role-ecs-alb.tf](terraform/role-ecs-alb.tf) | `tf-alb-ecs` | `AWS_ROLE_ARN_ECS_ALB` | ECS, ALB |
-| [role-route53.tf](terraform/role-route53.tf) | `tf-route53` | `AWS_ROLE_ARN_ROUTE53` | Route 53 |
+| [role-route53.tf](terraform/role-route53.tf) | `tf-route53` | `AWS_ROLE_ARN_ROUTE53` | Route 53, ACM |
 
 ## Adding a new role
 
@@ -57,6 +57,7 @@ terraform/
 ├── variables.tf              # Input variables (e.g. secret visibility)
 │
 ├── policy-tf-backend.tf      # Terraform backend access (S3 state, DynamoDB locking) — attached to all roles
+├── policy-acm.tf             # ACM + supporting permissions (Route53 DNS validation)
 ├── policy-lambda.tf          # Lambda + supporting permissions (S3 artifacts, IAM, VPC, KMS)
 ├── policy-apigw.tf           # API Gateway + supporting permissions (CloudWatch logs, ACM)
 ├── policy-dynamodb.tf        # DynamoDB + supporting permissions (autoscaling, KMS, CloudWatch)
@@ -66,7 +67,7 @@ terraform/
 ├── policy-ecr.tf             # ECR + supporting permissions (KMS, STS)
 ├── policy-ecs.tf             # ECS + supporting permissions (IAM, ECR, CloudWatch, EC2, ELB)
 ├── policy-alb.tf             # ALB + supporting permissions (EC2, ACM, WAF)
-├── policy-route53.tf         # Route53 + supporting permissions (ACM, CloudFront, ELB)
+├── policy-route53.tf         # Route53 + supporting permissions (CloudFront, ELB, EC2 VPC)
 ├── policy-cloudwatch.tf      # CloudWatch + supporting permissions (SNS, IAM)
 │
 ├── role-lambda-apigw.tf

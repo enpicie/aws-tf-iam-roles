@@ -9,6 +9,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_route53_route53" {
   policy_arn = aws_iam_policy.route53_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_route53_acm" {
+  role       = aws_iam_role.github_actions_route53.name
+  policy_arn = aws_iam_policy.acm_full_access.arn
+}
+
 resource "aws_iam_role_policy_attachment" "github_actions_route53_tf_backend" {
   role       = aws_iam_role.github_actions_route53.name
   policy_arn = aws_iam_policy.tf_backend.arn

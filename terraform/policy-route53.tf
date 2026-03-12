@@ -11,21 +11,6 @@ resource "aws_iam_policy" "route53_full_access" {
         Resource = "*"
       },
       {
-        # ACM certificate provisioning requires Route 53 for DNS validation.
-        # These permissions allow creating validation records and monitoring
-        # certificate status alongside hosted zone management.
-        Sid    = "ACMForRoute53CertValidation",
-        Effect = "Allow",
-        Action = [
-          "acm:ListCertificates",
-          "acm:DescribeCertificate",
-          "acm:RequestCertificate",
-          "acm:DeleteCertificate",
-          "acm:AddTagsToCertificate"
-        ],
-        Resource = "*"
-      },
-      {
         # Read-only access to CloudFront and ELB so that alias records pointing
         # to distributions and load balancers can be looked up during provisioning.
         Sid    = "ReadAliasTargetsForRoute53",
