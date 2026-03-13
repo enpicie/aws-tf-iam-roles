@@ -98,11 +98,12 @@ resource "aws_iam_policy" "ecs_full_access" {
           "ec2:DescribeInstances",
           "ec2:DescribeAvailabilityZones",
           "ec2:CreateSecurityGroup",
+          "ec2:DeleteSecurityGroup",
           "ec2:AuthorizeSecurityGroupIngress",
           "ec2:AuthorizeSecurityGroupEgress",
           "ec2:RevokeSecurityGroupIngress",
           "ec2:RevokeSecurityGroupEgress",
-          "ec2:DeleteSecurityGroup"
+          "ec2:CreateTags"
         ],
         Resource = "*"
       },
