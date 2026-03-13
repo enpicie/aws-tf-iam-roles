@@ -31,13 +31,13 @@ All roles include `TerraformBackendAccess` for S3 state and DynamoDB state locki
 
 | Role | IAM Role Name | Secret | Policies |
 |---|---|---|---|
-| [role-lambda-apigw.tf](terraform/role-lambda-apigw.tf) | `tf-apigw-lambda` | `AWS_ROLE_ARN_LAMBDA_APIGW` | Lambda, API Gateway |
-| [role-lambda-apigw-ddb.tf](terraform/role-lambda-apigw-ddb.tf) | `tf-apigw-ddb-lambda` | `AWS_ROLE_ARN_LAMBDA_APIGW_DDB` | Lambda, API Gateway, DynamoDB |
-| [role-lambda-apigw-ddb-sqs.tf](terraform/role-lambda-apigw-ddb-sqs.tf) | `tf-apigw-ddb-lambda-sqs` | `AWS_ROLE_ARN_LAMBDA_APIGW_DDB_SQS` | Lambda, API Gateway, DynamoDB, SQS |
+| [role-lambda-apigw.tf](terraform/role-lambda-apigw.tf) | `tf-apigw-lambda` | `AWS_ROLE_ARN_LAMBDA_APIGW` | Lambda, API Gateway, Secrets Manager |
+| [role-lambda-apigw-ddb.tf](terraform/role-lambda-apigw-ddb.tf) | `tf-apigw-ddb-lambda` | `AWS_ROLE_ARN_LAMBDA_APIGW_DDB` | Lambda, API Gateway, DynamoDB, Secrets Manager |
+| [role-lambda-apigw-ddb-sqs.tf](terraform/role-lambda-apigw-ddb-sqs.tf) | `tf-apigw-ddb-lambda-sqs` | `AWS_ROLE_ARN_LAMBDA_APIGW_DDB_SQS` | Lambda, API Gateway, DynamoDB, SQS, Secrets Manager |
 | [role-s3-cloudfront.tf](terraform/role-s3-cloudfront.tf) | `tf-cloudfront-s3` | `AWS_ROLE_ARN_S3_CLOUDFRONT` | S3, CloudFront, ACM |
 | [role-ecs-alb.tf](terraform/role-ecs-alb.tf) | `tf-alb-ecs` | `AWS_ROLE_ARN_ECS_ALB` | ECS, ALB, ACM |
 | [role-route53.tf](terraform/role-route53.tf) | `tf-route53` | `AWS_ROLE_ARN_ROUTE53` | Route 53, ACM |
-| [role-ecr.tf](terraform/role-ecr.tf) | `tf-ecr` | `AWS_ROLE_ARN_ECR` | ECR |
+| [role-ecr.tf](terraform/role-ecr.tf) | `tf-ecr` | `AWS_ROLE_ARN_ECR` | ECR, Secrets Manager |
 
 ## Adding a new role
 
@@ -70,6 +70,7 @@ terraform/
 ├── policy-alb.tf             # ALB + supporting permissions (EC2, ACM, WAF)
 ├── policy-route53.tf         # Route53 + supporting permissions (CloudFront, ELB, EC2 VPC)
 ├── policy-cloudwatch.tf      # CloudWatch + supporting permissions (SNS, IAM)
+├── policy-secretsmanager.tf  # Secrets Manager + supporting permissions (KMS)
 │
 ├── role-lambda-apigw.tf
 ├── role-lambda-apigw-ddb.tf

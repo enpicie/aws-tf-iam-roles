@@ -24,6 +24,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_lambda_apigw_ddb_sqs_s
   policy_arn = aws_iam_policy.sqs_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_lambda_apigw_ddb_sqs_secretsmanager" {
+  role       = aws_iam_role.github_actions_lambda_apigw_ddb_sqs.name
+  policy_arn = aws_iam_policy.secretsmanager_full_access.arn
+}
+
 resource "aws_iam_role_policy_attachment" "github_actions_lambda_apigw_ddb_sqs_tf_backend" {
   role       = aws_iam_role.github_actions_lambda_apigw_ddb_sqs.name
   policy_arn = aws_iam_policy.tf_backend.arn

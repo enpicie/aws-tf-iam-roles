@@ -9,6 +9,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_ecr_ecr" {
   policy_arn = aws_iam_policy.ecr_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_ecr_secretsmanager" {
+  role       = aws_iam_role.github_actions_ecr.name
+  policy_arn = aws_iam_policy.secretsmanager_full_access.arn
+}
+
 resource "aws_iam_role_policy_attachment" "github_actions_ecr_tf_backend" {
   role       = aws_iam_role.github_actions_ecr.name
   policy_arn = aws_iam_policy.tf_backend.arn
