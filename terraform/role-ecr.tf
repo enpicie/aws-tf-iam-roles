@@ -1,6 +1,6 @@
 resource "aws_iam_role" "github_actions_ecr" {
   name               = "tf-ecr"
-  description        = "Assumed by GitHub Actions workflows to provision ECR repositories"
+  description        = "Assumed by GitHub Actions workflows to provision ECR repositories and push images"
   assume_role_policy = data.aws_iam_policy_document.github_oidc_assume_role.json
 }
 
