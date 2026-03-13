@@ -12,7 +12,9 @@ resource "aws_iam_policy" "ecs_full_access" {
       },
       {
         # Allows passing task execution roles and task roles to ECS, and managing
-        # the IAM roles that containers assume at runtime. Scoped to naming convention.
+        # the IAM roles that containers assume at runtime. Covers both the ECS* naming
+        # convention and the {name}-ecs-execution / {name}-ecs-task pattern used by
+        # tf-module-ecs-alb-service.
         Sid    = "IAMForECSRoles",
         Effect = "Allow",
         Action = [
@@ -24,9 +26,17 @@ resource "aws_iam_policy" "ecs_full_access" {
           "iam:DeleteRole",
           "iam:ListRolePolicies",
           "iam:ListAttachedRolePolicies",
-          "iam:ListInstanceProfilesForRole"
+          "iam:ListInstanceProfilesForRole",
+          "iam:TagRole",
+          "iam:UntagRole",
+          "iam:PutRolePolicy",
+          "iam:GetRolePolicy",
+          "iam:DeleteRolePolicy"
         ],
-        Resource = "arn:aws:iam::637423387388:role/ECS*"
+        Resource = [
+          "arn:aws:iam::637423387388:role/ECS*",
+          "arn:aws:iam::637423387388:role/*-ecs-*"
+        ]
       },
       {
         # Required to create the ECS service-linked role on first use in an account.
@@ -56,16 +66,22 @@ resource "aws_iam_policy" "ecs_full_access" {
         Resource = "*"
       },
       {
-        # ECS tasks write container logs to CloudWatch Logs. These permissions
-        # are needed to create log groups for task definitions and stream logs.
+        # ECS tasks write container logs to CloudWatch Logs. These permissions cover
+        # creating/destroying log groups (with retention policies and tags), streaming
+        # logs from running tasks, and reading group/stream state during plan/refresh.
         Sid    = "CloudWatchLogsForECS",
         Effect = "Allow",
         Action = [
           "logs:CreateLogGroup",
+          "logs:DeleteLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
+          "logs:PutRetentionPolicy",
           "logs:DescribeLogGroups",
-          "logs:DescribeLogStreams"
+          "logs:DescribeLogStreams",
+          "logs:TagResource",
+          "logs:UntagResource",
+          "logs:ListTagsForResource"
         ],
         Resource = "*"
       },
