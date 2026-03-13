@@ -86,15 +86,19 @@ resource "aws_iam_policy" "ecs_full_access" {
         Resource = "*"
       },
       {
-        # ECS services require VPC networking context to place tasks in subnets
-        # and attach security groups. Read-only EC2 describe permissions are needed
-        # during planning; create/delete are needed when managing service security groups.
+        # ECS services require VPC networking context to place tasks in subnets and attach
+        # security groups. Fargate tasks in awsvpc mode create ENIs, requiring
+        # DescribeNetworkInterfaces. DescribeSecurityGroupRules is used by AWS provider v5+
+        # to read individual rules during plan/refresh. CreateTags/DeleteTags cover tag
+        # lifecycle on security groups and ENIs.
         Sid    = "EC2NetworkingForECS",
         Effect = "Allow",
         Action = [
           "ec2:DescribeVpcs",
           "ec2:DescribeSubnets",
           "ec2:DescribeSecurityGroups",
+          "ec2:DescribeSecurityGroupRules",
+          "ec2:DescribeNetworkInterfaces",
           "ec2:DescribeInstances",
           "ec2:DescribeAvailabilityZones",
           "ec2:CreateSecurityGroup",
@@ -103,7 +107,8 @@ resource "aws_iam_policy" "ecs_full_access" {
           "ec2:AuthorizeSecurityGroupEgress",
           "ec2:RevokeSecurityGroupIngress",
           "ec2:RevokeSecurityGroupEgress",
-          "ec2:CreateTags"
+          "ec2:CreateTags",
+          "ec2:DeleteTags"
         ],
         Resource = "*"
       },
