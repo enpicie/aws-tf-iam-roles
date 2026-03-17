@@ -39,6 +39,7 @@ All roles include `TerraformBackendAccess` for S3 state and DynamoDB state locki
 | [role-route53.tf](terraform/role-route53.tf) | `tf-route53` | `AWS_ROLE_ARN_ROUTE53` | Route 53, ACM |
 | [role-ecr.tf](terraform/role-ecr.tf) | `tf-ecr` | `AWS_ROLE_ARN_ECR` | ECR, Secrets Manager |
 | [role-s3.tf](terraform/role-s3.tf) | `tf-s3` | `AWS_ROLE_ARN_S3` | S3 |
+| [role-eventbridge-lambda.tf](terraform/role-eventbridge-lambda.tf) | `tf-eventbridge-lambda` | `AWS_ROLE_ARN_EVENTBRIDGE_LAMBDA` | EventBridge, Lambda |
 
 ## Adding a new role
 
@@ -72,6 +73,7 @@ terraform/
 ├── policy-route53.tf         # Route53 + supporting permissions (CloudFront, ELB, EC2 VPC)
 ├── policy-cloudwatch.tf      # CloudWatch + supporting permissions (SNS, IAM)
 ├── policy-secretsmanager.tf  # Secrets Manager + supporting permissions (KMS)
+├── policy-eventbridge.tf     # EventBridge rules and targets
 │
 ├── role-lambda-apigw.tf
 ├── role-lambda-apigw-ddb.tf
@@ -80,5 +82,6 @@ terraform/
 ├── role-ecs-alb.tf
 ├── role-route53.tf
 ├── role-ecr.tf
-└── role-s3.tf
+├── role-s3.tf
+└── role-eventbridge-lambda.tf
 ```
