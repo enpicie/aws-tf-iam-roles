@@ -14,6 +14,11 @@ resource "aws_iam_role_policy_attachment" "github_actions_eventbridge_lambda_lam
   policy_arn = aws_iam_policy.lambda_full_access.arn
 }
 
+resource "aws_iam_role_policy_attachment" "github_actions_eventbridge_lambda_secretsmanager" {
+  role       = aws_iam_role.github_actions_eventbridge_lambda.name
+  policy_arn = aws_iam_policy.secretsmanager_full_access.arn
+}
+
 resource "aws_iam_role_policy_attachment" "github_actions_eventbridge_lambda_tf_backend" {
   role       = aws_iam_role.github_actions_eventbridge_lambda.name
   policy_arn = aws_iam_policy.tf_backend.arn
