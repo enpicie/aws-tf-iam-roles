@@ -24,14 +24,19 @@ resource "aws_iam_role_policy_attachment" "github_actions_ecs_alb_secretsmanager
   policy_arn = aws_iam_policy.secretsmanager_full_access.arn
 }
 
-resource "aws_iam_role_policy_attachment" "github_actions_ecs_alb_cloudwatch" {
-  role       = aws_iam_role.github_actions_ecs_alb.name
-  policy_arn = aws_iam_policy.cloudwatch_full_access.arn
-}
-
 resource "aws_iam_role_policy_attachment" "github_actions_ecs_alb_tf_backend" {
   role       = aws_iam_role.github_actions_ecs_alb.name
   policy_arn = aws_iam_policy.tf_backend.arn
+}
+
+# Backend services define their own observability alongside the service:
+# log metric filters, alarms, dashboards, and the SNS topic alarms notify.
+# ECSFullAccess grants only basic log-group management (create, delete,
+# retention), so without this a service stack that declares any of those fails
+# to apply with AccessDenied even though the ECS and ALB resources succeed.
+resource "aws_iam_role_policy_attachment" "github_actions_ecs_alb_cloudwatch" {
+  role       = aws_iam_role.github_actions_ecs_alb.name
+  policy_arn = aws_iam_policy.cloudwatch_full_access.arn
 }
 
 resource "github_actions_organization_secret" "aws_role_arn_ecs_alb" {

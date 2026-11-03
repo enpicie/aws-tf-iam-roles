@@ -41,6 +41,7 @@ All roles include `TerraformBackendAccess` for S3 state and DynamoDB state locki
 | [role-s3.tf](terraform/role-s3.tf) | `tf-s3` | `AWS_ROLE_ARN_S3` | S3 |
 | [role-eventbridge-lambda.tf](terraform/role-eventbridge-lambda.tf) | `tf-eventbridge-lambda` | `AWS_ROLE_ARN_EVENTBRIDGE_LAMBDA` | EventBridge, Lambda, Secrets Manager |
 | [role-eventbridge-lambda-ddb-sqs.tf](terraform/role-eventbridge-lambda-ddb-sqs.tf) | `tf-eventbridge-lambda-ddb-sqs` | `AWS_ROLE_ARN_EVENTBRIDGE_LAMBDA_DDB_SQS` | EventBridge, Lambda, DynamoDB, SQS, Secrets Manager |
+| [role-metrics-read.tf](terraform/role-metrics-read.tf) | `gh-metrics-read` | `AWS_ROLE_ARN_METRICS_READ` | Metrics read-only (CloudWatch metrics, Logs Insights); no backend access |
 
 ## Adding a new role
 
@@ -75,6 +76,7 @@ terraform/
 ├── policy-cloudwatch.tf      # CloudWatch + supporting permissions (SNS, IAM)
 ├── policy-secretsmanager.tf  # Secrets Manager + supporting permissions (KMS)
 ├── policy-eventbridge.tf     # EventBridge rules and targets
+├── policy-metrics-read.tf   # Read-only CloudWatch metrics + Logs Insights (no mutations)
 │
 ├── role-lambda-apigw.tf
 ├── role-lambda-apigw-ddb.tf
@@ -85,5 +87,6 @@ terraform/
 ├── role-ecr.tf
 ├── role-s3.tf
 ├── role-eventbridge-lambda.tf
-└── role-eventbridge-lambda-ddb-sqs.tf
+├── role-eventbridge-lambda-ddb-sqs.tf
+└── role-metrics-read.tf
 ```

@@ -25,7 +25,16 @@ resource "aws_iam_policy" "cloudwatch_full_access" {
           "sns:Unsubscribe",
           "sns:ListTopics",
           "sns:ListSubscriptionsByTopic",
-          "sns:TagResource"
+          "sns:TagResource",
+          # The three below are required by the Terraform AWS provider rather
+          # than by CloudWatch itself, and their absence fails an apply on the
+          # refresh/read step even when creation would have succeeded:
+          #   ListTagsForResource - read tags on aws_sns_topic
+          #   UntagResource       - remove a tag on update
+          #   GetSubscriptionAttributes - read aws_sns_topic_subscription
+          "sns:ListTagsForResource",
+          "sns:UntagResource",
+          "sns:GetSubscriptionAttributes"
         ],
         Resource = "*"
       },
